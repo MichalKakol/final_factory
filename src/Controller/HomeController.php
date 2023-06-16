@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Person;
+use App\Form\PersonType;
+use App\Repository\PersonRepository;
 use App\Repository\TrainingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,5 +42,24 @@ class HomeController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
+    }
+    #[Route('/logout', name: 'logout')]
+    public function logout(): Response
+    {
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
+    #[Route('/redirect', name: 'redirect')] # CHECK login.html.twig for part 2
+    public function RedirectAction(Security $security): Response
+    {
+        if ($security->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_admin');
+        }
+        if ($security->isGranted('ROLE_MEMBER')) {
+            return $this->redirectToRoute('app_member');
+        }
+        if ($security->isGranted('ROLE_INSTRUCTOR')) {
+            return $this->redirectToRoute('app_instructor');
+        }
+        return $this->redirectToRoute('app_default');
     }
 }
