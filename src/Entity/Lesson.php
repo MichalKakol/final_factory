@@ -54,11 +54,9 @@ class Lesson
         return $this->training;
     }
 
-    public function setTraining(?Training $training): static
+    public function setTraining(?Training $training): void
     {
         $this->training = $training;
-
-        return $this;
     }
 
     public function getInstructor(): ?Person
@@ -66,11 +64,9 @@ class Lesson
         return $this->instructor;
     }
 
-    public function setInstructor(?Person $instructor): static
+    public function setInstructor(?Person $instructor): void
     {
         $this->instructor = $instructor;
-
-        return $this;
     }
 
     public function getTimes(): ?\DateTimeInterface
@@ -78,11 +74,9 @@ class Lesson
         return $this->times;
     }
 
-    public function setTimes(\DateTimeInterface $times): static
+    public function setTimes(\DateTimeInterface $times): void
     {
         $this->times = $times;
-
-        return $this;
     }
 
     public function getDates(): ?\DateTimeInterface
@@ -90,11 +84,9 @@ class Lesson
         return $this->dates;
     }
 
-    public function setDates(\DateTimeInterface $dates): static
+    public function setDates(\DateTimeInterface $dates): void
     {
         $this->dates = $dates;
-
-        return $this;
     }
 
     public function getLocation(): ?string
@@ -102,11 +94,9 @@ class Lesson
         return $this->location;
     }
 
-    public function setLocation(string $location): static
+    public function setLocation(string $location): void
     {
         $this->location = $location;
-
-        return $this;
     }
 
     public function getMaxPeople(): ?int
@@ -114,11 +104,9 @@ class Lesson
         return $this->max_people;
     }
 
-    public function setMaxPeople(int $max_people): static
+    public function setMaxPeople(int $max_people): void
     {
         $this->max_people = $max_people;
-
-        return $this;
     }
 
     /**
@@ -129,17 +117,15 @@ class Lesson
         return $this->registrations;
     }
 
-    public function addRegistration(Registration $registration): static
+    public function addRegistration(Registration $registration): void
     {
         if (!$this->registrations->contains($registration)) {
             $this->registrations->add($registration);
             $registration->setLesson($this);
         }
-
-        return $this;
     }
 
-    public function removeRegistration(Registration $registration): static
+    public function removeRegistration(Registration $registration): void
     {
         if ($this->registrations->removeElement($registration)) {
             // set the owning side to null (unless already changed)
@@ -147,7 +133,10 @@ class Lesson
                 $registration->setLesson(null);
             }
         }
+    }
 
-        return $this;
+    public function __toString(): string
+    {
+        return $this->training ? (string) $this->training->getId() : '';
     }
 }

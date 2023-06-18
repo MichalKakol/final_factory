@@ -1,0 +1,47 @@
+{% extends 'user/instructor.html.twig' %}
+
+{% block title %}Your Lessons{% endblock %}
+
+{% block content %}
+    <h1>Lesson index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Training</th>
+            <th>Time</th>
+            <th>Dates</th>
+            <th>Location</th>
+            <th>Max_people</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson in lessons %}
+            {% set currentDate = "now"|date("Y-m-d H:i:s") %}
+            {% set lessonDate = lesson.dates ? lesson.dates|date("Y-m-d") : null %}
+            {% set lessonTime = lesson.times ? lesson.times|date("H:i") : null %}
+            {% set lessonDateTime = lessonDate and lessonTime ? lessonDate ~ ' ' ~ lessonTime : null %}
+            {% set rowClass = lessonDateTime and lessonDateTime > currentDate ? 'upcoming' : 'past' %}
+
+            <tr class="{{ rowClass }}">
+                <td>{{ lesson.training.description }}</td>
+                <td>{{ lessonTime }}</td>
+                <td>{{ lessonDate }}</td>
+                <td>{{ lesson.location }}</td>
+                <td>{{ lesson.maxPeople }}</td>
+                <td>
+                    <a href="{{ path('app_lesson_show', {'id': lesson.id}) }}">show</a>
+                    <a href="{{ path('app_lesson_edit', {'id': lesson.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_lesson_new') }}">Add Lesson</a>
+{% endblock %}

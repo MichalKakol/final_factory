@@ -1,0 +1,11 @@
+<style>
+tr.upcoming {
+    background-color: green;
+    color: white;
+}
+
+tr.past {
+    background-color: red;
+    color: white;
+}
+</style>
