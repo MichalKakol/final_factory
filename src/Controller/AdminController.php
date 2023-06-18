@@ -20,4 +20,9 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+    #[Route('/logout', name: 'logout')]
+    public function logout(): Response
+    {
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
 }

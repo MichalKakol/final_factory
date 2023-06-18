@@ -36,9 +36,10 @@ security:
     access_control: # NOT NEW !!!
         - { path: ^/member, roles: ROLE_MEMBER } # NOT NEW !!!
         - { path: ^/instructor, roles: ROLE_INSTRUCTOR } # NOT NEW !!!
+        - { path: ^/lesson, roles: ROLE_INSTRUCTOR } # NOT NEW !!!
         - { path: ^/admin, roles: ROLE_ADMIN } # NOT NEW !!!
         - { path: ^/person, roles: ROLE_ADMIN } # NOT NEW !!!
-        - { path: ^/person/new, roles: ROLE_USER } # NOT NEW !!!
+        - { path: ^/training, roles: ROLE_ADMIN } # NOT NEW !!!
 when@test:
     security:
         password_hashers:

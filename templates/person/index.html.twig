@@ -1,24 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/admin.html.twig' %}
 
 {% block title %}Person index{% endblock %}
 
 {% block content %}
-    <h1>Person index</h1>
+    <h1>Users</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>First_name</th>
+                <th>First name</th>
                 <th>Preprovision</th>
                 <th>Last_name</th>
-                <th>Date_of_birth</th>
-                <th>Hiring_date</th>
-                <th>Salary</th>
-                <th>Social_sec_number</th>
                 <th>Street</th>
                 <th>Place</th>
                 <th>actions</th>
@@ -27,22 +20,14 @@
         <tbody>
         {% for person in people %}
             <tr>
-                <td>{{ person.id }}</td>
                 <td>{{ person.email }}</td>
-                <td>{{ person.roles ? person.roles|json_encode : '' }}</td>
-                <td>{{ person.password }}</td>
                 <td>{{ person.firstName }}</td>
                 <td>{{ person.preprovision }}</td>
                 <td>{{ person.lastName }}</td>
-                <td>{{ person.dateOfBirth ? person.dateOfBirth|date('Y-m-d') : '' }}</td>
-                <td>{{ person.hiringDate ? person.hiringDate|date('Y-m-d') : '' }}</td>
-                <td>{{ person.salary }}</td>
-                <td>{{ person.socialSecNumber }}</td>
                 <td>{{ person.street }}</td>
                 <td>{{ person.place }}</td>
                 <td>
-                    <a href="{{ path('app_person_show', {'id': person.id}) }}">show</a>
-                    <a href="{{ path('app_person_edit', {'id': person.id}) }}">edit</a>
+                    <a class="btn btn-secondary" href="{{ path('app_person_show', {'id': person.id}) }}">detail</a>
                 </td>
             </tr>
         {% else %}
@@ -53,5 +38,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_person_new') }}">Create new</a>
+
 {% endblock %}
