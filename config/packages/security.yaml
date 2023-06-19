@@ -40,6 +40,9 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN } # NOT NEW !!!
         - { path: ^/person, roles: ROLE_ADMIN } # NOT NEW !!!
         - { path: ^/training, roles: ROLE_ADMIN } # NOT NEW !!!
+        - { path: ^/memberslesson, roles: ROLE_MEMBER }
+        - { path: ^/registration, roles: ROLE_MEMBER }
+
 when@test:
     security:
         password_hashers:
