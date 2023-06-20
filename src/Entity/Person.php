@@ -68,7 +68,10 @@ class Person implements UserInterface, PasswordAuthenticatedUserInterface
         $this->instructors = new ArrayCollection();
         $this->registrations = new ArrayCollection();
     }
-
+    public function __toString(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
     public function getId(): ?int
     {
         return $this->id;

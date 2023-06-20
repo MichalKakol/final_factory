@@ -1,0 +1,42 @@
+{% extends 'user/member.html.twig' %}
+
+{% block title %}Person index{% endblock %}
+
+{% block content %}
+    <h1>Your profile</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>First name</th>
+                <th>Preprovision</th>
+                <th>Last_name</th>
+                <th>Street</th>
+                <th>Place</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for person in people %}
+            <tr>
+                <td>{{ person.email }}</td>
+                <td>{{ person.firstName }}</td>
+                <td>{{ person.preprovision }}</td>
+                <td>{{ person.lastName }}</td>
+                <td>{{ person.street }}</td>
+                <td>{{ person.place }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{{ path('member_person_edit', {'id': person.id}) }}">Update info</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

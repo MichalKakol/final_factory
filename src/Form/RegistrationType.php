@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
+
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -22,6 +24,7 @@ class RegistrationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Registration::class,
+            'lesson' => null, // Add the 'lesson' option with a default value of null
         ]);
     }
 }

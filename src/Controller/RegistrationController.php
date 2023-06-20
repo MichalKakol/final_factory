@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Registration;
 
+use App\Repository\LessonRepository;
+use App\Entity\Lesson;
+use Symfony\Component\Security\Core\Security;
 use App\Form\RegistrationType;
 use App\Repository\RegistrationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,11 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/registration')]
 class RegistrationController extends AbstractController
 {
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     #[Route('/', name: 'app_registration_index', methods: ['GET'])]
     public function index(RegistrationRepository $registrationRepository): Response
     {
+        $loggedInPerson = $this->security->getUser();
+        $registrations = $registrationRepository->findBy(['person' => $loggedInPerson]);
+
         return $this->render('registration/index.html.twig', [
-            'registrations' => $registrationRepository->findAll(),
+            'registrations' => $registrations,
         ]);
     }
 
@@ -40,6 +53,7 @@ class RegistrationController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_registration_show', methods: ['GET'])]
     public function show(Registration $registration): Response
@@ -76,4 +90,32 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_registration_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/new/{lessonId}', name: 'app_registration_new_lesson', methods: ['GET', 'POST'])]
+    public function newLesson(Request $request, RegistrationRepository $registrationRepository, LessonRepository $lessonRepository, int $lessonId): Response
+    {
+        $lesson = $lessonRepository->find($lessonId);
+        $registration = new Registration();
+        $form = $this->createForm(RegistrationType::class, $registration);
+        $form->handleRequest($request);
+        $form = $this->createForm(RegistrationType::class, null, [
+            'lesson' => $lesson,
+        ]);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Set the lesson for the registration
+            $registration->setLesson($lesson);
+
+            // Save the registration to the database
+            $registrationRepository->save($registration, true);
+
+            return $this->redirectToRoute('app_registration_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('registration/new.html.twig', [
+            'registration' => $registration,
+            'form' => $form,
+            'lesson' => $lesson,
+        ]);
+    }
+
 }
