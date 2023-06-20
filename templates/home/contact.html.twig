@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Training Factory{% endblock %}
+
+{% block content %}
+
+    <div class="container items-center mt-5">
+        <div class="row justify-content-evenly">
+            <div class="col-4">
+                <h3 class="fw-bold text-success"> Aangeboden trainingen </h3>
+                <ul class="fw-semibold">
+                    {% for training in trainings %}
+                        <li>{{ training.description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-4">
+                <h3 class="fw-bold text-success">Huisregels</h3>
+                <ol class="fw-semibold">
+                    <li>Draag geschikte kleding en schoenen</li>
+                    <li>Houdt rekening met anderen en vermijd storend gedrag</li>
+                    <li>Gebruik geen drugs of alcohol tijdens de training</li>
+                    <li>Respecteer de privacy van anderen en neem geen foto's of video's op zonder toestemming</li>
+                    <li>Kom op tijd en zorg dat je klaar bent voor de les voordat deze begint</li>
+                </ol>
+            </div>
+        </div>
+</div>
+
+{% endblock %}
