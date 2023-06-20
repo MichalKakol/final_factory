@@ -102,4 +102,5 @@ class Training
 
         return $this;
     }
+
 }

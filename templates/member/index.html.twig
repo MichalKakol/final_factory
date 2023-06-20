@@ -3,7 +3,7 @@
 {% block title %}Your Lessons{% endblock %}
 
 {% block content %}
-    <h1>Lesson index</h1>
+    <h1>Trainings</h1>
 
     <table class="table">
         <thead>
@@ -12,7 +12,7 @@
             <th>Time</th>
             <th>Dates</th>
             <th>Location</th>
-            <th>Max_people</th>
+            <th>Max people</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -31,8 +31,7 @@
                 <td>{{ lesson.location }}</td>
                 <td>{{ lesson.maxPeople }}</td>
                 <td>
-                    <a href="{{ path('member_lesson_show', {'id': lesson.id}) }}">show</a>
-                    <a href="{{ path('member_lesson_edit', {'id': lesson.id}) }}">edit</a>
+                    <a href="{{ path('app_registration_new_lesson', {'lessonId': lesson.id}) }}">register</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +42,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('member_lesson_new') }}">Add Lesson</a>
 {% endblock %}
